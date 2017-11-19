@@ -574,3 +574,8 @@ class DictionarySerializer(Serializer):
         task.internal_data = s_state['internal_data']
 
         return task
+
+    def deserialize_custom_task(self, wf_spec, s_state):
+        spec = get_class(s_state['class'])(wf_spec, s_state['name'])
+        self.deserialize_task_spec(wf_spec, s_state, spec=spec)
+        return spec
